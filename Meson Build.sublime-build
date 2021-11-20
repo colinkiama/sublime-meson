@@ -1,0 +1,19 @@
+{
+	"shell_cmd": "meson build -D prefix=/usr",
+	"keyfiles": ["meson.build", "build.ninja"],
+	"working_dir": "${folder:${project_path:${file_path}}}",
+	"variants": [
+		{
+			"name": "Build Project",
+			"shell_cmd": "meson compile -C build"
+		},
+		{
+			"name": "Test",
+			"shell_cmd": "meson test -C build"
+		},
+		{
+			"name": "Install",
+			"shell_cmd": "meson install -C build"
+		}
+	]
+}
