@@ -2,7 +2,7 @@
 
 Sublime Text Meson Build Integration.
 
-This isn't in Package Control yet. Copy this to the `Users` folder in your
+This isn't in Package Control yet. Copy this repo's folder into to the `Users` folder in your
 Sublime Text packages directory.
 
 ## Features
