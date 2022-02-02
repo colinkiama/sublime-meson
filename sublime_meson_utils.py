@@ -1,6 +1,6 @@
 import sublime
 import sublime_plugin
-import os
+from pathlib import Path
 
 BUILD_CONFIG_NAME = 'meson.build'
 
@@ -10,16 +10,17 @@ def sublime_project_folder(self):
 	if len(folders) < 0:
 		return None
 
-	return folders[0]
+	return Path(folders[0])
 
 
-def build_config_file(self):
+def build_config_path(self):
 	project_folder_path = sublime_project_folder(self)
-	if len(project_folder_path) < 0 is False:
+	if project_folder_path is None:
 		return None
 
-	build_config_path = os.path.join(project_folder_path, BUILD_CONFIG_NAME)
-	if os.path.isfile(build_config_path) is False:
+	config_path = project_folder_path.joinpath(BUILD_CONFIG_NAME)
+				      			
+	if config_path.is_file() is False:
 		return None
 
-	return build_config_path
+	return config_path

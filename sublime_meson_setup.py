@@ -12,8 +12,11 @@ class MesonSetupInputHandler(sublime_plugin.TextInputHandler):
 
 class MesonSetupCommand(sublime_plugin.TextCommand):
     def run(self, edit, build_dir):
-    	build_config_file = sublime_meson_utils.build_config_file(self)
-    	print("Build config file path:", build_config_file)
+    	build_config_path = sublime_meson_utils.build_config_path(self)
+    	if build_config_path is None:
+    		return
+
+    	print("Build config file path:", str(build_config_path))
     	print("Line:", build_dir)
 
     def input(self, args):
