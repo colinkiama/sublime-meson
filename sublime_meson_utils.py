@@ -4,8 +4,8 @@ from pathlib import Path
 
 BUILD_CONFIG_NAME = 'meson.build'
 
-def project_folder(self):
-	current_window = self.view.window()
+def project_folder(context):
+	current_window = context.window
 	folders = current_window.folders()
 	if len(folders) < 0:
 		return None
@@ -13,8 +13,8 @@ def project_folder(self):
 	return Path(folders[0])
 
 
-def build_config_path(self):
-	project_folder_path = project_folder(self)
+def build_config_path(context):
+	project_folder_path = project_folder(context)
 	if project_folder_path is None:
 		return None
 
