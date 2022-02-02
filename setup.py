@@ -1,7 +1,7 @@
 import sublime_plugin
 import os
 import subprocess
-from . import sublime_meson_utils
+from . import utils
 
 
 class MesonSetupInputHandler(sublime_plugin.TextInputHandler):
