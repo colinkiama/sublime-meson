@@ -1,3 +1,4 @@
+import sublime
 import sublime_plugin
 import os
 import subprocess
@@ -20,14 +21,14 @@ class MesonSetupCommand(sublime_plugin.WindowCommand):
         if self.build_config_path is None:
             return
 
-        print("Build config file path:", str(self.build_config_path))
-        print("build_dir:", build_dir)
-
-        subprocess.run(['meson', 'setup', build_dir],
-            cwd = utils.project_folder(self))
+        sublime.set_timeout_async(self.__run_async, 0)
 
     def __run_async(self):
-        print("I am async!")
+        print("Build config file path:", str(self.build_config_path))
+        print("build_dir:", self.build_dir)
+
+        subprocess.run(['meson', 'setup', self.build_dir],
+            cwd = utils.project_folder(self))
 
     def input(self, args):
         if "build_dir" not in args:
