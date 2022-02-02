@@ -1,0 +1,3 @@
+[
+    { "caption": "Meson: Setup", "command": "meson_setup" },
+]
