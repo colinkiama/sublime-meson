@@ -4,7 +4,7 @@ from pathlib import Path
 
 BUILD_CONFIG_NAME = 'meson.build'
 
-def sublime_project_folder(self):
+def project_folder(self):
 	current_window = self.view.window()
 	folders = current_window.folders()
 	if len(folders) < 0:
@@ -14,7 +14,7 @@ def sublime_project_folder(self):
 
 
 def build_config_path(self):
-	project_folder_path = sublime_project_folder(self)
+	project_folder_path = project_folder(self)
 	if project_folder_path is None:
 		return None
 
