@@ -24,9 +24,6 @@ class MesonSetupCommand(sublime_plugin.WindowCommand):
         sublime.set_timeout_async(self.__run_async, 0)
 
     def __run_async(self):
-        print("Build config file path:", str(self.build_config_path))
-        print("build_dir:", self.build_dir)
-
         subprocess.run(['meson', 'setup', self.build_dir],
             cwd = utils.project_folder())
 
