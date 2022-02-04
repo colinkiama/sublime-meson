@@ -27,8 +27,6 @@ def build_config_path(context):
 	return config_path
 
 def find_introspection_data(context):
-	# Basicaly you glob ./*/meson-info.json in the current sublime project
-	# folder directory
 	results = []
 	current_project_folder = project_folder(context)
 	if current_project_folder is None:
