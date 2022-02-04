@@ -7,4 +7,4 @@ This isn't in Package Control yet. Copy this repo's folder into your Sublime Tex
 ## Features
 
 - Setup Projects 
-- Compile Projects (Requires Meson version >= 0.54)  
+- Compile Projects (Requires Meson version >= 0.54)
