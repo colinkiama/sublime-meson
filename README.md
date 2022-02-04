@@ -6,4 +6,5 @@ This isn't in Package Control yet. Copy this repo's folder into your Sublime Tex
 
 ## Features
 
-- **Setup**: Sets up project and creates a `build` directory. (In progress)
+- Setup Projects 
+- Compile Projects (Requires Meson version >= 0.54)  
