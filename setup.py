@@ -17,7 +17,7 @@ class MesonSetupInputHandler(sublime_plugin.TextInputHandler):
 class MesonSetupCommand(sublime_plugin.WindowCommand):
     def run(self, build_dir):
         self.build_dir = build_dir
-        self.build_config_path = utils.build_config_path(self)
+        self.build_config_path = utils.build_config_path()
         if self.build_config_path is None:
             return
 
@@ -28,7 +28,7 @@ class MesonSetupCommand(sublime_plugin.WindowCommand):
         print("build_dir:", self.build_dir)
 
         subprocess.run(['meson', 'setup', self.build_dir],
-            cwd = utils.project_folder(self))
+            cwd = utils.project_folder())
 
     def input(self, args):
         if "build_dir" not in args:

@@ -5,17 +5,16 @@ from pathlib import Path
 
 BUILD_CONFIG_NAME = 'meson.build'
 
-def project_folder(context):
-	current_window = context.window
-	folders = current_window.folders()
+def project_folder():
+	folders = sublime.active_window().folders()
 	if len(folders) < 0:
 		return None
 
 	return Path(folders[0])
 
 
-def build_config_path(context):
-	project_folder_path = project_folder(context)
+def build_config_path():
+	project_folder_path = project_folder()
 	if project_folder_path is None:
 		return None
 
@@ -26,10 +25,10 @@ def build_config_path(context):
 
 	return config_path
 
-def find_introspection_data(context):
+def introspection_data_files():
 	results = []
-	current_project_folder = project_folder(context)
+	current_project_folder = project_folder()
 	if current_project_folder is None:
-		return
+		return results
 
 	return glob.glob(str(current_project_folder) + '/*/meson-info/meson-info.json')
