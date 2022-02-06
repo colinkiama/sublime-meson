@@ -6,6 +6,8 @@ from pathlib import Path
 BUILD_CONFIG_NAME = 'meson.build'
 STATUS_MESSAGE_PREFIX = 'Meson'
 
+panels = {'sublime-meson': None}
+
 def project_folder():
 	folders = sublime.active_window().folders()
 	if len(folders) < 0:
@@ -36,3 +38,23 @@ def introspection_data_files():
 
 def display_status_message(message):
 	sublime.active_window().status_message(STATUS_MESSAGE_PREFIX + ': '  + message)
+
+
+def update_output_panel(cmd_action):
+	# panel = get_panel("sublime-meson")
+	panel = sublime.active_window().create_output_panel("sublime-meson")
+	sublime.active_window().run_command("show_panel", {"panel": "output.sublime-meson"})
+	panel.set_read_only(False)
+	cmd_action(panel)
+	panel.set_read_only(True)
+	# panel.run_command('append', {'characters': 'bruh: ' + count, "force": True, "scroll_to_end": True})
+
+def get_panel(key):
+	panel = panels[key]
+	if panel:
+		return panel
+
+	panel = sublime.active_window().create_output_panel(key)
+	panels[key] = panel
+
+	return panel
