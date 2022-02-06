@@ -85,6 +85,12 @@ class MesonSetupCommand(sublime_plugin.WindowCommand):
                 
                 process.communicate()
 
+            if process.returncode is 0:
+                utils.display_status_message("Project Compiled successfully")
+            else:
+                utils.display_status_message("Project failed to compile, please" +
+                    " refer to output panel")
+
         utils.update_output_panel(lambda panel: cmd_action(panel))
 
     def input(self, args):
