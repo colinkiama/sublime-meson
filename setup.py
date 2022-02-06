@@ -51,7 +51,13 @@ class MesonSetupCommand(sublime_plugin.WindowCommand):
             command_args.append("--prefix=" + self.prefix)
         
         command_args.append(self.build_dir)
-        subprocess.run(command_args, cwd = utils.project_folder())
+        completed_process = subprocess.run(command_args, cwd = utils.project_folder())
+
+        if completed_process.returncode is 0:
+            utils.display_status_message("Project setup successfully")
+        else:
+            utils.display_status_message("Project failed to be setup, please" +
+                " refer to output panel")
 
     def input(self, args):
         input_requests = []

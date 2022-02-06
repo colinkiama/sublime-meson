@@ -4,6 +4,7 @@ import glob
 from pathlib import Path
 
 BUILD_CONFIG_NAME = 'meson.build'
+STATUS_MESSAGE_PREFIX = 'Meson'
 
 def project_folder():
 	folders = sublime.active_window().folders()
@@ -32,3 +33,6 @@ def introspection_data_files():
 		return results
 
 	return glob.glob(str(current_project_folder) + '/*/meson-info/meson-info.json')
+
+def display_status_message(message):
+	sublime.active_window().status_message(STATUS_MESSAGE_PREFIX + ': '  + message)

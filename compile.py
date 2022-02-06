@@ -48,8 +48,15 @@ class MesonCompileCommand(sublime_plugin.WindowCommand):
         sublime.set_timeout_async(self.__run_async, 0)
 
     def __run_async(self):
-        subprocess.run(['meson', 'compile', '-C', self.build_dir],
+        utils.display_status_message("Compiling from:" + self.build_dir)
+        completed_process = subprocess.run(['meson', 'compile', '-C', self.build_dir],
             cwd = utils.project_folder())
+
+        if completed_process.returncode is 0:
+            utils.display_status_message("Project Compiled successfully")
+        else:
+            utils.display_status_message("Project failed to compile, please" +
+                " refer to output panel")
 
     def input (self, args):
         if "selected_option" not in args:
