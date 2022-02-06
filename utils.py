@@ -1,6 +1,7 @@
 import sublime
 import sublime_plugin
 import glob
+import os
 from pathlib import Path
 
 BUILD_CONFIG_NAME = 'meson.build'
@@ -45,7 +46,9 @@ def update_output_panel(cmd_action):
 	panel = sublime.active_window().create_output_panel("sublime-meson")
 	sublime.active_window().run_command("show_panel", {"panel": "output.sublime-meson"})
 	panel.set_read_only(False)
-	cmd_action(panel)
+	env = os.environ
+	env["COLORTERM"] = "nocolor"
+	cmd_action(panel, env)
 	panel.set_read_only(True)
 	# panel.run_command('append', {'characters': 'bruh: ' + count, "force": True, "scroll_to_end": True})
 
