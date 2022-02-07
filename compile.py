@@ -2,6 +2,7 @@ import sublime
 import sublime_plugin
 import json
 import subprocess
+import os
 from pathlib import Path
 from . import utils
 
@@ -48,8 +49,26 @@ class MesonCompileCommand(sublime_plugin.WindowCommand):
         sublime.set_timeout_async(self.__run_async, 0)
 
     def __run_async(self):
-        subprocess.run(['meson', 'compile', '-C', self.build_dir],
-            cwd = utils.project_folder())
+        utils.display_status_message("Compiling from:" + self.build_dir)
+        command_args = ['meson', 'compile', '-C', self.build_dir]
+
+        def cmd_action(panel, env):
+            process = subprocess.Popen(" ".join(command_args), stdout = subprocess.PIPE, shell = True, cwd = utils.project_folder(), env = env, bufsize = 0)
+            if process:
+                process.stdout.flush()
+                for line in iter(process.stdout.readline, b''):
+                    panel.run_command('append', {'characters': line.decode('utf-8'), "force": True, "scroll_to_end": True})
+                    process.stdout.flush()
+                
+                process.communicate()   
+                
+            if process.returncode == 0:
+                utils.display_status_message("Project Compiled successfully")
+            else:
+                utils.display_status_message("Project failed to compile, please" +
+                    " refer to output panel")
+
+        utils.update_output_panel(lambda panel, env: cmd_action(panel, env))
 
     def input (self, args):
         if "selected_option" not in args:

@@ -49,9 +49,26 @@ class MesonSetupCommand(sublime_plugin.WindowCommand):
         command_args = ['meson', 'setup']
         if self.prefix is not None:
             command_args.append("--prefix=" + self.prefix)
-        
+
         command_args.append(self.build_dir)
-        subprocess.run(command_args, cwd = utils.project_folder())
+
+        def cmd_action(panel, env):
+            process = subprocess.Popen(" ".join(command_args), stdout = subprocess.PIPE, shell = True, cwd = utils.project_folder(), env = env, bufsize = 0)
+            if process:
+                process.stdout.flush()
+                for line in iter(process.stdout.readline, b''):
+                    panel.run_command('append', {'characters': line.decode('utf-8'), "force": True, "scroll_to_end": True})
+                    process.stdout.flush()
+                
+                process.communicate()
+
+            if process.returncode is 0:
+                utils.display_status_message("Project created successfully")
+            else:
+                utils.display_status_message("Project failed to be created, please" +
+                    " refer to output panel")
+
+        utils.update_output_panel(lambda panel, env: cmd_action(panel, env))
 
     def input(self, args):
         input_requests = []
