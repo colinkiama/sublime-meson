@@ -3,11 +3,16 @@ import sublime_plugin
 import json
 import subprocess
 import os
+import importlib
+
 from pathlib import Path
 from . import utils
 
+
 build_dirs = []
 build_dir_names = []
+
+importlib.import_module('sublime-meson')
 
 class MesonCompileInputHandler(sublime_plugin.ListInputHandler):
     def name(self):
@@ -47,10 +52,9 @@ class MesonCompileCommand(sublime_plugin.WindowCommand):
         self.build_dir = build_dir
       
         sublime.set_timeout_async(self.__run_async, 0)
-
     def __run_async(self):
         utils.display_status_message("Compiling from:" + self.build_dir)
-        command_args = ['meson', 'compile', '-C', self.build_dir]
+        command_args = [utils.MESON_BINARY, 'compile', '-C', self.build_dir]
 
         def cmd_action(panel, env):
             process = subprocess.Popen(" ".join(command_args), stdout = subprocess.PIPE, shell = True, cwd = utils.project_folder(), env = env, bufsize = 0)

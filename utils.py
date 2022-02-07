@@ -9,6 +9,37 @@ STATUS_MESSAGE_PREFIX = 'Meson'
 
 panels = {'sublime-meson': None}
 
+def _test_paths_for_executable(paths, test_file):
+    for directory in paths:
+        file_path = os.path.join(directory, test_file)
+        if os.path.exists(file_path) and os.access(file_path, os.X_OK):
+            return file_path
+
+
+def find_binary(cmd):
+    path = os.environ.get('PATH', '').split(os.pathsep)
+    if os.name == 'nt':
+        cmd = cmd + '.exe'
+
+    path = _test_paths_for_executable(path, cmd)
+
+    if not path:
+        # /usr/local/bin:/usr/local/meson/bin
+        if os.name == 'nt':
+            extra_paths = (
+                os.path.join(os.environ.get("ProgramFiles", ""), "meson", "bin"),
+                os.path.join(os.environ.get("ProgramFiles(x86)", ""), "meson", "bin"),
+            )
+        else:
+            extra_paths = (
+                '/usr/local/bin',
+                '/usr/local/meson/bin',
+            )
+        path = _test_paths_for_executable(extra_paths, cmd)
+    return path
+
+MESON_BINARY = find_binary('meson')
+
 def project_folder():
 	folders = sublime.active_window().folders()
 	if len(folders) < 0:
@@ -39,7 +70,6 @@ def introspection_data_files():
 
 def display_status_message(message):
 	sublime.active_window().status_message(STATUS_MESSAGE_PREFIX + ': '  + message)
-
 
 def update_output_panel(cmd_action):
 	panel = sublime.active_window().create_output_panel("sublime-meson")
