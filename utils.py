@@ -42,7 +42,6 @@ def display_status_message(message):
 
 
 def update_output_panel(cmd_action):
-	# panel = get_panel("sublime-meson")
 	panel = sublime.active_window().create_output_panel("sublime-meson")
 	sublime.active_window().run_command("show_panel", {"panel": "output.sublime-meson"})
 	panel.set_read_only(False)
@@ -50,14 +49,3 @@ def update_output_panel(cmd_action):
 	env["COLORTERM"] = "nocolor"
 	cmd_action(panel, env)
 	panel.set_read_only(True)
-	# panel.run_command('append', {'characters': 'bruh: ' + count, "force": True, "scroll_to_end": True})
-
-def get_panel(key):
-	panel = panels[key]
-	if panel:
-		return panel
-
-	panel = sublime.active_window().create_output_panel(key)
-	panels[key] = panel
-
-	return panel
