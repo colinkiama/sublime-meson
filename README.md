@@ -6,7 +6,7 @@ Sublime Text Meson Build Integration.
 
 ### Package Control
 
-Install it From [Package Control](https://packagecontrol.io/)
+Install it from [Package Control](https://packagecontrol.io/)
 
 ### Manual Installation
 
