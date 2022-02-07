@@ -2,6 +2,8 @@ import sublime
 import sublime_plugin
 import os
 import subprocess
+import importlib
+
 from . import utils
 
 build_dir_request = {
@@ -13,6 +15,8 @@ prefix_request = {
     'arg': "prefix", 
     'placeholder': 'Prefix (Leave blank for default value)',
 }
+
+importlib.import_module('sublime-meson')
 
 class MesonSetupInputHandler(sublime_plugin.TextInputHandler):
     def __init__(self, request):
@@ -46,7 +50,7 @@ class MesonSetupCommand(sublime_plugin.WindowCommand):
         sublime.set_timeout_async(self.__run_async, 0)
 
     def __run_async(self):
-        command_args = ['meson', 'setup']
+        command_args = [utils.MESON_BINARY, 'setup']
         if self.prefix is not None:
             command_args.append("--prefix=" + self.prefix)
 
@@ -62,7 +66,7 @@ class MesonSetupCommand(sublime_plugin.WindowCommand):
                 
                 process.communicate()
 
-            if process.returncode is 0:
+            if process.returncode == 0:
                 utils.display_status_message("Project created successfully")
             else:
                 utils.display_status_message("Project failed to be created, please" +
