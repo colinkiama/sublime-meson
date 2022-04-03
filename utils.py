@@ -7,7 +7,7 @@ from pathlib import Path
 BUILD_CONFIG_NAME = 'meson.build'
 STATUS_MESSAGE_PREFIX = 'Meson'
 
-panels = {'meson': None}
+panels = {'Meson': None}
 
 def _test_paths_for_executable(paths, test_file):
     for directory in paths:
@@ -72,8 +72,8 @@ def display_status_message(message):
 	sublime.active_window().status_message(STATUS_MESSAGE_PREFIX + ': '  + message)
 
 def update_output_panel(cmd_action):
-	panel = sublime.active_window().create_output_panel("meson")
-	sublime.active_window().run_command("show_panel", {"panel": "output.meson"})
+	panel = sublime.active_window().create_output_panel("Meson")
+	sublime.active_window().run_command("show_panel", {"panel": "output.Meson"})
 	panel.set_read_only(False)
 	env = os.environ
 	env["COLORTERM"] = "nocolor"
