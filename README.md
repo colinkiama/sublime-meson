@@ -6,11 +6,11 @@ Sublime Text Meson Build Integration.
 
 ### Package Control
 
-Install it from [Package Control](https://packagecontrol.io/)
+Install it from [Package Control](https://packagecontrol.io/packages/Meson)
 
 ### Manual Installation
 
-Copy this repo's folder into your Sublime Text `Packages` directory.
+Copy this repo's folder into your Sublime Text `Packages` directory. You will need to rename the folder to "Meson".
 
 ## How to use
 
