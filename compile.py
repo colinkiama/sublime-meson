@@ -12,7 +12,7 @@ from . import utils
 build_dirs = []
 build_dir_names = []
 
-importlib.import_module('sublime-meson')
+importlib.import_module('meson')
 
 class MesonCompileInputHandler(sublime_plugin.ListInputHandler):
     def name(self):

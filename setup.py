@@ -16,7 +16,7 @@ prefix_request = {
     'placeholder': 'Prefix (Leave blank for default value)',
 }
 
-importlib.import_module('sublime-meson')
+importlib.import_module('meson')
 
 class MesonSetupInputHandler(sublime_plugin.TextInputHandler):
     def __init__(self, request):
