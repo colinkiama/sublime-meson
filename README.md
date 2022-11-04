@@ -2,6 +2,8 @@
 
 Sublime Text Meson Build Integration.
 
+**ARCHIVED**: Please fork and continue work elsewhere.
+
 ## Installation
 
 ### Package Control
